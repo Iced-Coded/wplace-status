@@ -12,6 +12,12 @@ Also, for some reason - Cloudflare error pages **don't** return error codes, so 
 
 And if there's no errors - we just return that everything's fine.
 
+## Can I use your work?
+
+Sure, you can, as the license doesn't prohibit so, nor can I.
+
+Also, if you only need to know endpoint's status - you don't need to host your own instance of the bot, as I already provide a [public JSON file](https://alexvolkov.envs.net/wplace/status.json) with all the statuses, which is updated once every 2 minutes.
+
 ## Aren't bots prohibited?
 
 **Yes, they are.** Though, I'm not doing anything malicious, nor interacting with the game itself.
