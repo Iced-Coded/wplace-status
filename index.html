@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>wplace Unofficial Status Page</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    rel="stylesheet"
+  />
+</head>
+<body>
+  <div class="container my-4">
+    <div class="row mb-3">
+      <div class="col-12">
+        <h1>wplace Unofficial Status Page</h1>
+        <p>Made by <a href="https://bsky.app/profile/avol.pp.ua">Alex</a></p>
+      </div>
+    </div>
+
+    <div class="card border-info mb-4">
+      <div class="card-header d-flex justify-content-between align-items-center">
+        <h3 class="card-title mb-0">
+          <span id="status"></span>
+        </h3>
+        <small>Refreshed at <span id="last-checked"></span> (EEST)</small>
+      </div>
+    </div>
+
+    <div class="list-group">
+      <div class="list-group-item">
+        <h5 class="mb-1">
+          Frontend
+          <a href="#" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Visualisation of backend data, without it you can't see the website itself." class="ms-2">
+            <i class="fa fa-question-circle"></i>
+          </a>
+        </h5>
+        <p class="mb-0">
+          <span class="badge bg-danger" id="front-label">Not Operational</span>
+        </p>
+      </div>
+
+      <div class="list-group-item">
+        <h5 class="mb-1">
+          Backend
+          <a href="#" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Accounts, pixel placements are here, without backend, you can't register, login or do anything other than viewing." class="ms-2">
+            <i class="fa fa-question-circle"></i>
+          </a>
+        </h5>
+        <p class="mb-0">
+          <span class="badge bg-success" id="back-label">Operational</span>
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+      <p class="text-center">We're pinging wplace servers from Düsseldorf - that's where <a href="envs.net">envs.net</a> servers are located.</p>
+  </div>
+
+  <div class="container">
+    <hr>
+    <footer class="text-center text-lg-start">
+      <div class="container p-3">
+        <div class="d-flex justify-content-center">
+          <a href="status.json" class="text-decoration-none mx-3 text-muted">Raw</a>
+          <a href="https://bsky.app/profile/avol.pp.ua" class="text-decoration-none mx-3 text-muted">Contact</a>
+        </div>
+        <div class="text-center text-muted mt-2">
+          &copy; 2025 Alex. I do not own wplace or their respective assets.
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const tooltipTriggerList = [].slice.call(
+        document.querySelectorAll('[data-bs-toggle="tooltip"]')
+      );
+      tooltipTriggerList.map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl));
+    });
+  </script>
+
+  <script src="status.js"></script>
+</body>
+</html>
