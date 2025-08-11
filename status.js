@@ -30,15 +30,19 @@ function updateStatus() {
 
       const front = data.services.frontend;
       const back = data.services.backend;
+      const draw = data.services.tiles;
+      const map = data.services.maps;
 
       updateLabel("#front-label", front.status, front.latency_ms);
       updateLabel("#back-label", back.status, back.latency_ms);
+      updateLabel("#draw-label", draw.status, draw.latency_ms);
+      updateLabel("#map-label", map.status, map.latency_ms);
 
       const statusText = document.querySelector("#status");
-      if (front.status === "up" && back.status === "up") {
+      if (front.status === "up" && back.status === "up" && draw.status === "up" && map.status === "up") {
         statusText.textContent = "All systems are up";
         statusText.className = "text-success";
-      } else if (front.status === "down" && back.status === "down") {
+      } else if (front.status === "down" && back.status === "down" && draw.status === "down" && map.status === "down") {
         statusText.textContent = "All systems are down";
         statusText.className = "text-danger";
       } else {
@@ -55,7 +59,7 @@ function updateStatus() {
       statusText.textContent = "Unable to determine system status";
       statusText.className = "text-danger";
 
-      ["#front-label", "#back-label"].forEach(id => {
+      ["#front-label", "#back-label", "#draw-label", "#map-label"].forEach(id => {
         const el = document.querySelector(id);
         el.classList.remove("bg-success", "bg-danger", "bg-warning");
         el.classList.add("bg-warning");

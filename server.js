@@ -1,11 +1,28 @@
 const fs = require('fs');
 const puppeteer = require('puppeteer-extra');
 const StealthPlugin = require('puppeteer-extra-plugin-stealth');
+const fetch = require('node-fetch').default;
 
 puppeteer.use(StealthPlugin());
 
 const STATUS_FILE = 'status.json';
 const CHECK_INTERVAL = 2 * 60 * 1000; // 2 minutes
+
+async function checkFileService(url) {
+    const start = Date.now();
+    try {
+        const res = await fetch(url, { timeout: 15000 });
+        const latency = Date.now() - start;
+
+        if (!res.ok) {
+            return { status: 'down', latency_ms: latency, error: `HTTP ${res.status}`};
+        }
+
+        return { status: 'up', latency_ms: latency, error: null };
+    } catch (e) {
+        return { status: 'down', latency_ms: null, error: e.message };
+    }
+}
 
 async function checkService(url) {
     const browser = await puppeteer.launch({
@@ -45,13 +62,18 @@ async function checkService(url) {
 }
 
 async function checkAll() {
+
     console.log('Checking services...');
+
     const frontend = await checkService('https://wplace.live');
     const backend = await checkService('https://backend.wplace.live');
 
+    const maps = await checkFileService('https://maps.wplace.live/planet/20250806_001001_pt/14/9784/5655.pbf');
+    const tiles = await checkFileService('https://backend.wplace.live/files/s0/tiles/1223/707.png');
+
     const result = {
         last_checked: new Date().toISOString(),
-        services: { frontend, backend }
+        services: { frontend, backend, maps, tiles }
     };
 
     fs.writeFileSync(STATUS_FILE, JSON.stringify(result, null, 2));
