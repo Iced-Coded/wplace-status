@@ -15,6 +15,9 @@ async function checkFileService(url) {
         const latency = Date.now() - start;
 
         if (!res.ok) {
+            if (res.status === 403) {
+                return { status: 'up', latency_ms: latency, error: null };
+            }
             return { status: 'down', latency_ms: latency, error: `HTTP ${res.status}`};
         }
 
@@ -33,7 +36,7 @@ async function checkService(url) {
     const start = Date.now();
 
     try {
-        const res = await page.goto(url, { waitUntil: 'networkidle2', timeout: 15000 });
+        const res = await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 15000 });
         const latency = Date.now() - start;
 
         const bodyText = await page.evaluate(() => document.body.innerText);
