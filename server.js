@@ -69,7 +69,7 @@ async function checkAll() {
     console.log('Checking services...');
 
     const frontend = await checkService('https://wplace.live');
-    const backend = await checkService('https://backend.wplace.live');
+    const backend = await checkService('https://backend.wplace.live/health');
 
     const maps = await checkFileService('https://maps.wplace.live/planet/20250806_001001_pt/14/9784/5655.pbf');
     const tiles = await checkFileService('https://backend.wplace.live/files/s0/tiles/1223/707.png');
