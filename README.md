@@ -14,7 +14,9 @@ And if there's no errors - we just return that everything's fine.
 
 ## What NodeJS versions does the server.js support?
 
-It supports NodeJS 20.x and 22.x; Due to the node-fetch, it just doesn't work out of box with NodeJS 18.x, sorry.
+It supports NodeJS 20.x and 22.x; Due to the node-fetch, it just doesn't work out of box with NodeJS 18.x.
+
+Though, if you **really** need support for NodeJS 18.x, then [there's a branch for it](https://github.com/Iced-Coded/wplace-status/tree/node18). But really, consider upgrading your NodeJS.
 
 ## Can I use your work?
 
