@@ -12,6 +12,10 @@ Also, for some reason - Cloudflare error pages **don't** return error codes, so 
 
 And if there's no errors - we just return that everything's fine.
 
+## What NodeJS versions does the server.js support?
+
+It support NodeJS 20.x and 22.x; Due to the node-fetch, it just doesn't work out of box with NodeJS 18.x, sorry.
+
 ## Can I use your work?
 
 Sure, you can, as the license doesn't prohibit so, nor can I.
