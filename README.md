@@ -2,6 +2,9 @@
 
 We've all seen how frequently wplace's infrastructure is going down, and thus, I've decided to make a webpage where you could see it's status without going on the website itself.
 
+***THIS IS A VERSION FOR LEGACY NODEJS FOR NODEJS 18 AND LOWER. USE MAIN BRANCH FOR NEWER VERSION.***
+**Consider updating to NodeJS 20.x or 22.x**
+
 ## How does it work?
 
 It works by using a headless browser bot, which goes to the https://wplace.live and https://backend.wplace.live
