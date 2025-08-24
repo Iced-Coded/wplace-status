@@ -107,13 +107,18 @@ async function checkAll() {
 }
 
 async function main() {
-    while (true) {
-        try {
-            await checkAll();
-        } catch (e) {
-            console.error('Error during check:', e);
+    if (process.env.GITHUB_ACTIONS) {
+        console.log("Running in GitHub Actions, working fine.")
+        process.exit(0);
+    } else {
+        while (true) {
+            try {
+                await checkAll();
+            } catch (e) {
+                console.error('Error during check:', e);
+            }
+            await new Promise(r => setTimeout(r, CHECK_INTERVAL));
         }
-        await new Promise(r => setTimeout(r, CHECK_INTERVAL));
     }
 }
 
