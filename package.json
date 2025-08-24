@@ -1,6 +1,6 @@
 {
   "dependencies": {
-    "node-fetch": "^3.3.2",
+    "node-fetch": "^2.6.7",
     "puppeteer": "^24.16.1",
     "puppeteer-extra": "^3.3.6",
     "puppeteer-extra-plugin-stealth": "^2.11.2"
