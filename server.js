@@ -1,5 +1,6 @@
 const fs = require('fs');
 const puppeteer = require('puppeteer-extra');
+const path = require('path');
 const StealthPlugin = require('puppeteer-extra-plugin-stealth');
 const fetch = require('node-fetch').default;
 
@@ -7,6 +8,11 @@ puppeteer.use(StealthPlugin());
 
 const STATUS_FILE = 'status.json';
 const CHECK_INTERVAL = 2 * 60 * 1000; // 2 minutes
+
+const USER_DATA_DIR = 'puppeteer-data'
+// Check this if you don't care about Puppeteer's temporary user files.
+// I'd recommend setting this 'true', cause Puppeteer clogs up the '/puppeteer-data' pretty quickly.
+const REMOVE_TEMP = true
 
 async function checkFileService(url) {
     const start = Date.now();
@@ -27,10 +33,26 @@ async function checkFileService(url) {
     }
 }
 
+async function cleanupPuppeteer() {
+    if (REMOVE_TEMP == true) {
+        try {
+            await fs.promises.rm(USER_DATA_DIR, { recursive: true, force: true });
+            console.log("Removed temp user data of Puppeteer");
+        } catch (err) {
+            console.error("Failed to remove temp user data; ", err)
+        }
+    } else {
+        console.log("Skipping temp folder removal; User's request.");
+    }
+}
+
 async function checkService(url) {
     const browser = await puppeteer.launch({
         headless: true,
-        args: ['--no-sandbox', '--disable-setuid-sandbox']
+        args: ['--no-sandbox', '--disable-setuid-sandbox'],
+        // Temp folder gets clogged up pretty fast with it storing everything there.
+        // We'll clear this thing out every time we close the browser.
+        userDataDir: USER_DATA_DIR
     });
     const page = await browser.newPage();
     const start = Date.now();
@@ -81,6 +103,7 @@ async function checkAll() {
 
     fs.writeFileSync(STATUS_FILE, JSON.stringify(result, null, 2));
     console.log('Status updated at', result.last_checked);
+    cleanupPuppeteer()
 }
 
 async function main() {
